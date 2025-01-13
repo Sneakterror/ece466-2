@@ -1,0 +1,57 @@
+# ECE 466/566 container for easy use on Windows, Linux, MacOS
+
+FROM ubuntu:22.04
+
+LABEL maintainer="jtuck@ncsu.edu"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+  && apt-get clean \
+  && apt-get install -y --no-install-recommends ssh \
+      build-essential \
+      wget \
+      gcc \
+      g++ \
+      gdb \
+      cmake \
+      rsync \
+      tar \
+      python3 \
+      python3-pip \
+      zlib1g-dev \
+      bison \
+      libbison-dev \
+      flex \
+      lsb-release software-properties-common gnupg \
+   && apt-get clean
+
+RUN wget https://apt.llvm.org/llvm.sh &&\
+    chmod +x ./llvm.sh &&\
+    ./llvm.sh 19 all &&\
+    rm llvm.sh
+
+RUN apt-get install -y time \
+    && apt-get clean
+
+RUN apt-get update \
+  && apt-get clean \
+  && apt-get install -y --no-install-recommends less zstd libzstd-dev \
+  && apt-get clean
+
+ADD . /ece566
+ADD . /build
+WORKDIR /ece566
+
+RUN ( \
+    echo 'LogLevel DEBUG2'; \
+    echo 'PermitRootLogin yes'; \
+    echo 'PasswordAuthentication yes'; \
+    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
+  ) > /etc/ssh/sshd_config_test_clion \
+  && mkdir /run/sshd
+
+RUN useradd -m user \
+  && yes password | passwd user
+
+CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
