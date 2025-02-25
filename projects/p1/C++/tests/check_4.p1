@@ -1,0 +1,9 @@
+f(a) {
+  return a;
+}
+
+check_4(a)
+{
+  return f(a);
+}
+

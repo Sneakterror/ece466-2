@@ -1,0 +1,6 @@
+check_3(*a,*b)
+{
+  c = a + b;
+  return 0.0;
+}
+

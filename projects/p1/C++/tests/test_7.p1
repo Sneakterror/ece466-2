@@ -1,0 +1,9 @@
+test_7(a,b,c,d) {
+  m = matrix ([2 , 2], { 0, 0, 0, 0 });
+  m[0,0] = to_double(a);
+  m[0,1] = to_double(b);
+  m[1,0] = to_double(c);
+  m[1,1] = to_double(d);
+  return m[1,1];
+}
+

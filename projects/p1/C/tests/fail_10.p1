@@ -1,0 +1,7 @@
+fail_9() {
+  // double cannot be given directly to expr
+  while (1.0) {
+
+  } 
+  return 0.0;
+}

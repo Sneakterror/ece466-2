@@ -1,0 +1,4 @@
+fail_6(m,n) {
+  M = matrix ([m , n], { 0,0,0,0 });
+  return M[m-1,n-1];
+}

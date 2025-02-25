@@ -1,0 +1,8 @@
+test_13(a,b,c) {
+  m1 = matrix ([3 , 3], { a,0.,0., 0.,b,0., 0.,0.,c });
+  //print(m1);
+  d = det (m1);
+  m2 = m1' / d;
+  print (m2);
+  return sum(m2); 
+}

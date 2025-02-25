@@ -1,0 +1,5 @@
+test_16(a,b,c,d,e,f,g,h,i) {
+  m = matrix ([3 , 3], { a,b,c, d,e,f, a,b,c });
+  j = det (m);
+  return j;
+}

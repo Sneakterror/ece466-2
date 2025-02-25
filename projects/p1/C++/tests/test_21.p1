@@ -1,0 +1,4 @@
+ones_test() {
+  m = ones([4,4]);
+  return 0.0;
+}

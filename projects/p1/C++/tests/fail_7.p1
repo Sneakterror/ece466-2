@@ -1,0 +1,7 @@
+fail_7(m,n) {
+  m1 = ones ([to_int(m) , to_int(n)]);
+  m2 = random ([to_int(n) , to_int(m)]);
+  m3 = m1 * m2;
+  // The following expressions has illegal types:
+  return m3[m-1.0,m-1.0];
+}

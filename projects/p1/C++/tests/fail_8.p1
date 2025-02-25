@@ -1,0 +1,9 @@
+fail_8 () {
+  if (1) {
+    b = 1;
+  } else {
+
+  }
+  //illegal access to b in return:
+  return to_double(b);
+}

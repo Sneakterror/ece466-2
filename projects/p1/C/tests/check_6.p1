@@ -1,0 +1,9 @@
+check_5(*a)
+{
+  return f(a);
+}
+
+f(*a) {
+  print(a);
+  return 0.0;
+}

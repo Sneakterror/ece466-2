@@ -1,0 +1,8 @@
+test_17(){
+	return 0.0;
+}
+
+//illegal duplicate definition
+test_17(){
+	return 0.0;
+}

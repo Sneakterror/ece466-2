@@ -1,0 +1,7 @@
+test_3() {
+  a = 4.0;
+  b = 1;
+  c = 1;
+  return a + to_double(b*2 - c);
+}
+
