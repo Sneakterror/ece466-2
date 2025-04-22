@@ -25,6 +25,6 @@ ADD_FLEX_BISON_DEPENDENCY(Scanner Parser)
 include_directories(.)
 
 add_executable(t2 ${BISON_Parser_OUTPUTS} ${FLEX_Scanner_OUTPUTS})
-target_link_libraries(t2 y)
+target_link_libraries(t2)
 
 endif()
