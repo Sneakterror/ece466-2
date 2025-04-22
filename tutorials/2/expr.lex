@@ -7,23 +7,20 @@
 
 void quiet(const char *, ...) {
 }
-  
 %}
-
 
 %option noyywrap
 
 %% // begin tokens
 
-[ \n\t]    // ignore a space, a tab, a newline
+[ \t\n]      { /* ignore whitespace */ }
 
-[Rr][0-7]    { printf("REG\n"); }
+[Rr][0-7]    { printf("REG: %s\n", yytext); }
 
-[0-9]+       { printf("IMMEDIATE\n"); }
-          
+[0-9]+       { printf("IMMEDIATE: %s\n", yytext); }
+
 "="          { printf("ASSIGN\n"); }
-
-;            { printf("SEMI\n"); }
+";"          { printf("SEMI\n"); }
 "("          { printf("LPAREN\n"); }
 ")"          { printf("RPAREN\n"); }
 "["          { printf("LBRACKET\n"); }
@@ -31,27 +28,18 @@ void quiet(const char *, ...) {
 "-"          { printf("MINUS\n"); }
 "+"          { printf("PLUS\n"); }
 
-
 "//".*\n     { printf("COMMENT\n"); }
 
-.            { printf("something else!\n"); }
+// Catch-all for any invalid/unrecognized character:
+.            { printf("ERROR: invalid character '%s'\n", yytext); }
 
 %% // end tokens
 
-
-// put more C code that I want in the final scanner
-
 #ifdef SCANNER_ONLY
 
-// This is the main function when we compile just the scanner: make scanner
 int main(int argc, char *argv[])
 {
-  // all the rules above are combined into a single function called yylex, we call it to trigger
-  // the scanner to read the input and match tokens:
-
   yylex();
-  // yylex has a return value, but we ignore it for now.
- 
   return 0;
 }
 
