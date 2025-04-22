@@ -41,27 +41,35 @@ int getReg() {
 %define parse.trace
 
 
-%token REG
-%token IMMEDIATE
-%type  expr
-
+%token <reg> REG IMMEDIATE
 %token ASSIGN SEMI PLUS MINUS LPAREN RPAREN LBRACKET RBRACKET
+%type <reg> expr
+%type  expr
 
 %left  PLUS MINUS
 
+%union {
+  int reg;
+}
+
 %%
 
-program:   REG ASSIGN expr SEMI
-;
+program:
+    REG ASSIGN expr SEMI {
+        printf("REG (%d) ASSIGN expr SEMI\n", $1);
+        return 0;
+    }
+  ;
 
-expr: IMMEDIATE
-| REG
-| expr PLUS expr
-| expr MINUS expr
-| LPAREN expr RPAREN
-| MINUS expr
-| LBRACKET expr RBRACKET
-;
+expr:
+    IMMEDIATE       { printf("IMMEDIATE (%d)\n", $1); $$ = $1; }
+  | REG             { printf("REG (%d)\n", $1); $$ = $1; }
+  | expr PLUS expr  { printf("expr PLUS expr\n"); $$ = $1 + $3; }
+  | expr MINUS expr { printf("expr MINUS expr\n"); $$ = $1 - $3; }
+  | LPAREN expr RPAREN { printf("LPAREN expr RPAREN\n"); $$ = $2; }
+  | MINUS expr      { printf("MINUS expr\n"); $$ = -$2; }
+  | LBRACKET expr RBRACKET { printf("LBRACKET expr RBRACKET\n"); $$ = $2; }
+  ;
 
 %%
 
@@ -70,8 +78,7 @@ void yyerror(const char* msg)
   printf("%s",msg);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   yydebug = 0;
   yyin = stdin;
   yyparse();

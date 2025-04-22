@@ -70,7 +70,16 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 51 "expr.y"
+
+  int reg;
+
+#line 80 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.hpp"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

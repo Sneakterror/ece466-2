@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <math.h>
+#include "expr.y.hpp"
 
 #define print quiet
 
@@ -13,29 +14,23 @@ void quiet(const char *, ...) {
 
 %% // begin tokens
 
-[ \t\n]        { /* Ignore whitespace */ }
+[Rr][0-7]      { yylval.reg = atoi(yytext + 1); return REG; }
+[0-9]+         { yylval.reg = atoi(yytext); return IMMEDIATE; }
 
-[Rr][0-7]      { printf("REG: %s\n", yytext); }             // ✔️ uses yytext
-[0-9]+         { printf("IMMEDIATE: %s\n", yytext); }      // ✔️ uses yytext
+"="            { return ASSIGN; }
+";"            { return SEMI; }
+"+"            { return PLUS; }
+"-"            { return MINUS; }
+"("            { return LPAREN; }
+")"            { return RPAREN; }
+"["            { return LBRACKET; }
+"]"            { return RBRACKET; }
 
-"="            { printf("ASSIGN\n"); }
-";"            { printf("SEMI\n"); }
-","            { printf("COMMA\n"); }
+[ \t\n]+       { /* ignore whitespace */ }
 
-"("            { printf("LPAREN\n"); }
-")"            { printf("RPAREN\n"); }
-"["            { printf("LBRACKET\n"); }
-"]"            { printf("RBRACKET\n"); }
+"//"[^\n]*     { /* skip comments */ }
 
-"+"            { printf("PLUS: %s\n", yytext); }           // ✔️ uses yytext
-"-"            { printf("MINUS\n"); }
-"*"            { printf("STAR\n"); }
-"/"            { printf("SLASH\n"); }
-
-
-"//"[^\n]*    { printf("COMMENT\n"); }
-
-.            { printf("ERROR: invalid character '%s'\n", yytext); }
+.              { printf("ERROR: invalid character '%s'\n", yytext); }
 
 %% // end tokens
 

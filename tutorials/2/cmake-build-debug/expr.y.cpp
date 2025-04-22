@@ -535,7 +535,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    54,    54,    57,    58,    59,    60,    61,    62,    63
+       0,    58,    58,    65,    66,    67,    68,    69,    70,    71
 };
 #endif
 
@@ -1102,8 +1102,59 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 2: /* program: REG ASSIGN expr SEMI  */
+#line 58 "expr.y"
+                         {
+        printf("REG (%d) ASSIGN expr SEMI\n", (yyvsp[-3].reg));
+        return 0;
+    }
+#line 1112 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
 
-#line 1107 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+  case 3: /* expr: IMMEDIATE  */
+#line 65 "expr.y"
+                    { printf("IMMEDIATE (%d)\n", (yyvsp[0].reg)); (yyval.reg) = (yyvsp[0].reg); }
+#line 1118 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 4: /* expr: REG  */
+#line 66 "expr.y"
+                    { printf("REG (%d)\n", (yyvsp[0].reg)); (yyval.reg) = (yyvsp[0].reg); }
+#line 1124 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 5: /* expr: expr PLUS expr  */
+#line 67 "expr.y"
+                    { printf("expr PLUS expr\n"); (yyval.reg) = (yyvsp[-2].reg) + (yyvsp[0].reg); }
+#line 1130 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 6: /* expr: expr MINUS expr  */
+#line 68 "expr.y"
+                    { printf("expr MINUS expr\n"); (yyval.reg) = (yyvsp[-2].reg) - (yyvsp[0].reg); }
+#line 1136 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 7: /* expr: LPAREN expr RPAREN  */
+#line 69 "expr.y"
+                       { printf("LPAREN expr RPAREN\n"); (yyval.reg) = (yyvsp[-1].reg); }
+#line 1142 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 8: /* expr: MINUS expr  */
+#line 70 "expr.y"
+                    { printf("MINUS expr\n"); (yyval.reg) = -(yyvsp[0].reg); }
+#line 1148 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+  case 9: /* expr: LBRACKET expr RBRACKET  */
+#line 71 "expr.y"
+                           { printf("LBRACKET expr RBRACKET\n"); (yyval.reg) = (yyvsp[-1].reg); }
+#line 1154 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
+    break;
+
+
+#line 1158 "C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/expr.y.cpp"
 
       default: break;
     }
@@ -1296,7 +1347,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 66 "expr.y"
+#line 74 "expr.y"
 
 
 void yyerror(const char* msg)
@@ -1304,8 +1355,7 @@ void yyerror(const char* msg)
   printf("%s",msg);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   yydebug = 0;
   yyin = stdin;
   yyparse();
