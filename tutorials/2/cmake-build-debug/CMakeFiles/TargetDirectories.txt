@@ -1,0 +1,3 @@
+C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/CMakeFiles/t2.dir
+C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/austi/OneDrive/Desktop/ece466-2-main/tutorials/2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

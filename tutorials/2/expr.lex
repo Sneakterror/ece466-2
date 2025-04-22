@@ -13,24 +13,28 @@ void quiet(const char *, ...) {
 
 %% // begin tokens
 
-[ \t\n]      { /* ignore whitespace */ }
+[ \t\n]        { /* Ignore whitespace */ }
 
-[Rr][0-7]    { printf("REG: %s\n", yytext); }
+[Rr][0-7]      { printf("REG: %s\n", yytext); }             // ✔️ uses yytext
+[0-9]+         { printf("IMMEDIATE: %s\n", yytext); }      // ✔️ uses yytext
 
-[0-9]+       { printf("IMMEDIATE: %s\n", yytext); }
+"="            { printf("ASSIGN\n"); }
+";"            { printf("SEMI\n"); }
+","            { printf("COMMA\n"); }
 
-"="          { printf("ASSIGN\n"); }
-";"          { printf("SEMI\n"); }
-"("          { printf("LPAREN\n"); }
-")"          { printf("RPAREN\n"); }
-"["          { printf("LBRACKET\n"); }
-"]"          { printf("RBRACKET\n"); }
-"-"          { printf("MINUS\n"); }
-"+"          { printf("PLUS\n"); }
+"("            { printf("LPAREN\n"); }
+")"            { printf("RPAREN\n"); }
+"["            { printf("LBRACKET\n"); }
+"]"            { printf("RBRACKET\n"); }
 
-\/\/[^\n]*   { printf("COMMENT\n"); }
+"+"            { printf("PLUS: %s\n", yytext); }           // ✔️ uses yytext
+"-"            { printf("MINUS\n"); }
+"*"            { printf("STAR\n"); }
+"/"            { printf("SLASH\n"); }
 
-// Catch-all for any invalid/unrecognized character:
+
+"//"[^\n]*    { printf("COMMENT\n"); }
+
 .            { printf("ERROR: invalid character '%s'\n", yytext); }
 
 %% // end tokens
