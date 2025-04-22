@@ -17,24 +17,24 @@ void quiet(const char *, ...) {
 
 [ \n\t]    // ignore a space, a tab, a newline
 
-[Rr][0-7]  
+[Rr][0-7]    { printf("REG\n"); }
 
-[0-9]+    
+[0-9]+       { printf("IMMEDIATE\n"); }
           
-"="         
+"="          { printf("ASSIGN\n"); }
 
-;         
-"("       
-")"       
-"["       
-"]"       
-"-"       
-"+"       
+;            { printf("SEMI\n"); }
+"("          { printf("LPAREN\n"); }
+")"          { printf("RPAREN\n"); }
+"["          { printf("LBRACKET\n"); }
+"]"          { printf("RBRACKET\n"); }
+"-"          { printf("MINUS\n"); }
+"+"          { printf("PLUS\n"); }
 
 
-"//".*\n  
+"//".*\n     { printf("COMMENT\n"); }
 
-.         
+.            { printf("something else!\n"); }
 
 %% // end tokens
 
