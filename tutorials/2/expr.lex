@@ -28,7 +28,7 @@ void quiet(const char *, ...) {
 "-"          { printf("MINUS\n"); }
 "+"          { printf("PLUS\n"); }
 
-"//".*\n     { printf("COMMENT\n"); }
+\/\/[^\n]*   { printf("COMMENT\n"); }
 
 // Catch-all for any invalid/unrecognized character:
 .            { printf("ERROR: invalid character '%s'\n", yytext); }
